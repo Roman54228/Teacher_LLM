@@ -1,0 +1,42 @@
+# Конфигурация Interview Prep Telegram Mini App
+
+# База данных
+database:
+  url: "sqlite:///interview_prep.db"  # SQLite для локальной разработки
+  host: "localhost"
+  port: 5432
+  name: "interview_prep"
+  user: "interview_user"
+  password: "your_password"
+
+# Telegram Bot (только для Telegram Mini App)
+telegram:
+  bot_token: ""  # Токен бота от @BotFather для валидации данных (опционально)
+  web_app_url: "https://640dcace-fc1d-4f73-95b6-e196d98eec59-00-6y6u6ng03tqr.worf.replit.dev"
+
+# Google OAuth (для Google авторизации)
+google:
+  client_id: ""  # Google OAuth Client ID (опционально)
+  enabled: true
+
+# YandexGPT API
+yandex:
+  api_key: "your_yandex_api_key_here"
+  folder_id: "your_yandex_folder_id_here"
+
+# Админ панель
+admin:
+  password: "admin123"
+  secret_key: "your-secret-key-change-this"
+
+# Настройки приложения
+app:
+  debug: true
+  host: "0.0.0.0"
+  main_port: 5000
+  admin_port: 5001
+
+# SQLite как альтернатива для локальной разработки (если PostgreSQL недоступен)
+sqlite:
+  enabled: true
+  database_path: "interview_prep.db"

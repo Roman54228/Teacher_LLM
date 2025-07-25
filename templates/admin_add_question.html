@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить вопрос - Admin Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: #1d1d1f;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .nav-link {
+            color: #007AFF;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: #f0f8ff;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover {
+            background: #007AFF;
+            color: white;
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #007AFF;
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .category-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+        
+        .category-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .form-radio {
+            margin-right: 8px;
+        }
+        
+        .form-note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        }
+        
+        .flash-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #dc3545;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            .form-container {
+                padding: 24px 16px;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>➕ Добавить новый вопрос</h1>
+            <p>Создание нового вопроса для тестирования</p>
+            <div class="nav-links">
+                <a href="/admin/dashboard" class="nav-link">← Назад к панели</a>
+                <a href="/admin/database" class="nav-link">База данных</a>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="form-container">
+            <form method="POST" action="/admin/create_question">
+                <div class="category-section">
+                    <h3 style="margin-bottom: 16px; color: #333;">Категория</h3>
+                    
+                    <div class="category-toggle">
+                        <input type="radio" id="existing_category" name="category_type" value="existing" class="form-radio" checked onchange="toggleCategory()">
+                        <label for="existing_category">Выбрать существующую</label>
+                    </div>
+                    
+                    <div id="existing_category_select">
+                        <select name="category" class="form-select">
+                            <option value="">Выберите категорию</option>
+                            {% for category in categories %}
+                            <option value="{{ category }}">{{ category }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="category-toggle" style="margin-top: 16px;">
+                        <input type="radio" id="new_category" name="category_type" value="new" class="form-radio" onchange="toggleCategory()">
+                        <label for="new_category">Создать новую категорию</label>
+                    </div>
+                    
+                    <div id="new_category_input" style="display: none;">
+                        <input type="text" name="new_category" class="form-input" placeholder="Название новой категории">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Текст вопроса *</label>
+                    <textarea name="question_text" class="form-textarea" placeholder="Введите текст вопроса..." required></textarea>
+                    <div class="form-note">Поддерживается форматирование текста и код в блоках ```</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Варианты ответов *</label>
+                    <div class="options-grid">
+                        <div>
+                            <input type="text" name="option1" class="form-input" placeholder="Вариант 1" required>
+                        </div>
+                        <div>
+                            <input type="text" name="option2" class="form-input" placeholder="Вариант 2" required>
+                        </div>
+                        <div>
+                            <input type="text" name="option3" class="form-input" placeholder="Вариант 3" required>
+                        </div>
+                        <div>
+                            <input type="text" name="option4" class="form-input" placeholder="Вариант 4" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Правильный ответ *</label>
+                    <input type="text" name="correct_answer" class="form-input" placeholder="Введите правильный ответ (должен точно совпадать с одним из вариантов)" required>
+                    <div class="form-note">Должен точно совпадать с одним из вариантов выше</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Подсказка (необязательно)</label>
+                    <textarea name="hint" class="form-textarea" placeholder="Подсказка для помощи пользователю..."></textarea>
+                    <div class="form-note">Подсказка поможет пользователям понять вопрос</div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    ✅ Сохранить вопрос
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleCategory() {
+            const existingRadio = document.getElementById('existing_category');
+            const newRadio = document.getElementById('new_category');
+            const existingSelect = document.getElementById('existing_category_select');
+            const newInput = document.getElementById('new_category_input');
+            
+            if (existingRadio.checked) {
+                existingSelect.style.display = 'block';
+                newInput.style.display = 'none';
+                existingSelect.querySelector('select').required = true;
+                newInput.querySelector('input').required = false;
+            } else {
+                existingSelect.style.display = 'none';
+                newInput.style.display = 'block';
+                existingSelect.querySelector('select').required = false;
+                newInput.querySelector('input').required = true;
+            }
+        }
+    </script>
+</body>
+</html>

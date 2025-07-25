@@ -1,0 +1,252 @@
+{
+  "Screening Test": [
+    {
+      "question": "Что выведет этот код?\n\n```python\nprint(type([1, 2, 3]))\n```",
+      "options": ["<class 'list'>", "<class 'tuple'>", "<class 'dict'>", "<class 'set'>"],
+      "correct_answer": "<class 'list'>",
+      "sub_category": "Тест"
+    },
+    {
+      "question": "Какой результат у выражения: 5 // 2",
+      "options": ["2.5", "2", "3", "2.0"],
+      "correct_answer": "2",
+      "sub_category": "Тест"
+    },
+    {
+      "question": "Что такое supervised learning в машинном обучении?",
+      "options": ["Обучение без учителя", "Обучение с учителем на размеченных данных", "Обучение с подкреплением", "Глубокое обучение"],
+      "correct_answer": "Обучение с учителем на размеченных данных",
+      "sub_category": "Тест"
+    },
+    {
+      "question": "Какая функция в Python используется для получения длины списка?",
+      "options": ["length()", "size()", "len()", "count()"],
+      "correct_answer": "len()",
+      "sub_category": "Тест"
+    },
+    {
+      "question": "Что такое cross-validation?",
+      "options": ["Проверка кода", "Метод оценки качества модели", "Обучение модели", "Очистка данных"],
+      "correct_answer": "Метод оценки качества модели",
+      "sub_category": "Тест"
+    },
+    {
+      "question": "Что выведет: print('Python'[0])?",
+      "options": ["P", "'P'", "Python", "0"],
+      "correct_answer": "P",
+      "sub_category": "Тест"
+    },
+    {
+      "question": "Какой алгоритм подходит для кластеризации?",
+      "options": ["Linear Regression", "K-means", "Logistic Regression", "SVM"],
+      "correct_answer": "K-means",
+      "sub_category": "Тест"
+    },
+    {
+      "question": "Что делает метод append() в Python?",
+      "options": ["Удаляет элемент", "Добавляет элемент в конец списка", "Сортирует список", "Очищает список"],
+      "correct_answer": "Добавляет элемент в конец списка",
+      "sub_category": "Тест"
+    },
+    {
+      "question": "Что такое overfitting в машинном обучении?",
+      "options": ["Недообучение", "Переобучение модели", "Правильное обучение", "Быстрое обучение"],
+      "correct_answer": "Переобучение модели",
+      "sub_category": "Тест"
+    },
+    {
+      "question": "Какой тип данных у переменной x = 3.14?",
+      "options": ["int", "float", "str", "bool"],
+      "correct_answer": "float",
+      "sub_category": "Тест"
+    }
+  ],
+  "Python": [
+    {
+      "question": "Что выведет этот код?\n\n```python\nprint([i for i in range(5) if i % 2 == 0])\n```",
+      "options": ["[0, 2, 4]", "[1, 3]", "[0, 1, 2, 3, 4]", "Ошибка"],
+      "correct_answer": "[0, 2, 4]",
+      "sub_category": "Основы Python",
+      "hint": "List comprehension с условием отбирает только четные числа"
+    },
+    {
+      "question": "Какое из следующих НЕ является корректным именем переменной в Python?",
+      "options": ["_variable", "variable1", "1variable", "variable_name"],
+      "correct_answer": "1variable",
+      "sub_category": "Основы Python",
+      "hint": "Имена переменных не могут начинаться с цифры"
+    },
+    {
+      "question": "Что представляет параметр 'self' в методах класса Python?",
+      "options": ["Сам класс", "Экземпляр класса", "Статическую переменную", "Параметр функции"],
+      "correct_answer": "Экземпляр класса",
+      "sub_category": "ООП",
+      "hint": "self ссылается на конкретный объект класса"
+    },
+    {
+      "question": "В чем разница между '==' и 'is' в Python?",
+      "options": ["Никакой разницы", "'==' сравнивает значения, 'is' сравнивает идентичность", "'is' сравнивает значения, '==' сравнивает идентичность", "Оба сравнивают идентичность"],
+      "correct_answer": "'==' сравнивает значения, 'is' сравнивает идентичность",
+      "sub_category": "Основы Python",
+      "hint": "== проверяет равенство значений, is проверяет, что это один объект в памяти"
+    },
+    {
+      "question": "Что выведет: len({'a': 1, 'b': 2, 'a': 3})?",
+      "options": ["2", "3", "1", "Ошибка"],
+      "correct_answer": "2",
+      "sub_category": "Структуры данных",
+      "hint": "В словаре ключи уникальны, поэтому 'a' перезапишется"
+    },
+    {
+      "question": "Что делает декоратор @property в Python?",
+      "options": ["Создает статический метод", "Превращает метод в свойство", "Делает метод приватным", "Создает конструктор"],
+      "correct_answer": "Превращает метод в свойство",
+      "sub_category": "ООП",
+      "hint": "@property позволяет обращаться к методу как к атрибуту"
+    },
+    {
+      "question": "Какой результат у выражения: 'python' * 3?",
+      "options": ["pythonpythonpython", "python3", "Ошибка", "python python python"],
+      "correct_answer": "pythonpythonpython",
+      "sub_category": "Строки",
+      "hint": "Оператор * повторяет строку указанное количество раз"
+    },
+    {
+      "question": "Что такое lambda функция в Python?",
+      "options": ["Рекурсивная функция", "Анонимная функция", "Метод класса", "Встроенная функция"],
+      "correct_answer": "Анонимная функция",
+      "sub_category": "Функции",
+      "hint": "lambda создает функцию без имени для простых операций"
+    },
+    {
+      "question": "Как правильно открыть файл для чтения в Python?",
+      "options": ["open('file.txt', 'r')", "read('file.txt')", "file('file.txt')", "load('file.txt')"],
+      "correct_answer": "open('file.txt', 'r')",
+      "sub_category": "Работа с файлами",
+      "hint": "Функция open() с режимом 'r' открывает файл для чтения"
+    },
+    {
+      "question": "Что выведет: bool([0, False, ''])?",
+      "options": ["True", "False", "Ошибка", "None"],
+      "correct_answer": "True",
+      "sub_category": "Логические операции",
+      "hint": "Непустой список всегда True, даже если содержит 'ложные' элементы"
+    },
+    {
+      "question": "Какой метод используется для добавления элемента в множество?",
+      "options": ["append()", "add()", "insert()", "push()"],
+      "correct_answer": "add()",
+      "sub_category": "Структуры данных",
+      "hint": "Для множеств (set) используется метод add()"
+    },
+    {
+      "question": "Что делает yield в Python?",
+      "options": ["Завершает функцию", "Создает генератор", "Выбрасывает исключение", "Импортирует модуль"],
+      "correct_answer": "Создает генератор",
+      "sub_category": "Генераторы",
+      "hint": "yield превращает функцию в генератор, возвращая значения по одному"
+    },
+    {
+      "question": "Как создать виртуальное окружение в Python?",
+      "options": ["python -m venv myenv", "create venv myenv", "python venv myenv", "virtualenv create myenv"],
+      "correct_answer": "python -m venv myenv",
+      "sub_category": "Инструменты разработки",
+      "hint": "Команда python -m venv создает виртуальное окружение"
+    },
+    {
+      "question": "Что такое PEP 8?",
+      "options": ["Версия Python", "Стандарт оформления кода", "Библиотека Python", "Интерпретатор Python"],
+      "correct_answer": "Стандарт оформления кода",
+      "sub_category": "Стандарты",
+      "hint": "PEP 8 - это руководство по стилю написания кода Python"
+    },
+    {
+      "question": "Как обработать исключение в Python?",
+      "options": ["catch/finally", "try/except", "handle/error", "catch/throw"],
+      "correct_answer": "try/except",
+      "sub_category": "Исключения",
+      "hint": "В Python используются блоки try/except для обработки исключений"
+    }
+  ],
+  "Machine Learning": [
+    {
+      "question": "What is the main difference between supervised and unsupervised learning?",
+      "options": ["Supervised learning uses labeled data, unsupervised doesn't", "Supervised learning is faster", "Unsupervised learning is more accurate", "No difference"],
+      "correct_answer": "Supervised learning uses labeled data, unsupervised doesn't"
+    },
+    {
+      "question": "Which algorithm is best suited for linearly separable data classification?",
+      "options": ["Random Forest", "SVM with linear kernel", "K-means", "DBSCAN"],
+      "correct_answer": "SVM with linear kernel"
+    },
+    {
+      "question": "What is the purpose of cross-validation in machine learning?",
+      "options": ["To increase training speed", "To evaluate model performance and prevent overfitting", "To reduce data size", "To clean the data"],
+      "correct_answer": "To evaluate model performance and prevent overfitting"
+    },
+    {
+      "question": "Which metric is most appropriate for evaluating a model on an imbalanced dataset?",
+      "options": ["Accuracy", "F1-score", "Mean Squared Error", "R²"],
+      "correct_answer": "F1-score"
+    },
+    {
+      "question": "What does the bias-variance tradeoff refer to?",
+      "options": ["The balance between model complexity and generalization", "The choice between different algorithms", "The tradeoff between training and testing time", "The balance between precision and recall"],
+      "correct_answer": "The balance between model complexity and generalization"
+    }
+  ],
+  "NLP": [
+    {
+      "question": "What is the main purpose of tokenization in NLP?",
+      "options": ["To encrypt text", "To break text into individual words or tokens", "To translate text", "To classify text"],
+      "correct_answer": "To break text into individual words or tokens"
+    },
+    {
+      "question": "Which technique is commonly used to convert words into numerical vectors?",
+      "options": ["Tokenization", "Stemming", "Word embeddings", "Parsing"],
+      "correct_answer": "Word embeddings"
+    },
+    {
+      "question": "What is the difference between stemming and lemmatization?",
+      "options": ["No difference", "Stemming removes prefixes, lemmatization removes suffixes", "Stemming cuts word endings, lemmatization finds root forms", "Lemmatization is faster"],
+      "correct_answer": "Stemming cuts word endings, lemmatization finds root forms"
+    },
+    {
+      "question": "Which model architecture is particularly effective for sequence-to-sequence tasks?",
+      "options": ["CNN", "RNN", "Transformer", "SVM"],
+      "correct_answer": "Transformer"
+    },
+    {
+      "question": "What does TF-IDF stand for?",
+      "options": ["Text Frequency - Inverse Document Frequency", "Term Frequency - Inverse Document Frequency", "Total Frequency - Individual Document Frequency", "Text Format - Index Document Format"],
+      "correct_answer": "Term Frequency - Inverse Document Frequency"
+    }
+  ],
+  "Computer Vision": [
+    {
+      "question": "What is the primary purpose of convolution in CNN?",
+      "options": ["To reduce image size", "To extract features from images", "To increase image resolution", "To convert color to grayscale"],
+      "correct_answer": "To extract features from images"
+    },
+    {
+      "question": "Which layer is typically used to reduce spatial dimensions in CNN?",
+      "options": ["Convolutional layer", "Pooling layer", "Dense layer", "Activation layer"],
+      "correct_answer": "Pooling layer"
+    },
+    {
+      "question": "What is the purpose of data augmentation in computer vision?",
+      "options": ["To increase dataset size and improve generalization", "To reduce training time", "To compress images", "To remove noise"],
+      "correct_answer": "To increase dataset size and improve generalization"
+    },
+    {
+      "question": "Which activation function is commonly used in the output layer for multi-class classification?",
+      "options": ["ReLU", "Sigmoid", "Softmax", "Tanh"],
+      "correct_answer": "Softmax"
+    },
+    {
+      "question": "What is transfer learning in the context of computer vision?",
+      "options": ["Moving data between computers", "Using pre-trained models as starting points", "Converting image formats", "Transferring images between datasets"],
+      "correct_answer": "Using pre-trained models as starting points"
+    }
+  ]
+}

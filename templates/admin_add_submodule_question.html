@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить вопрос в подмодуль - Admin Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 24px;
+            margin: 24px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            color: #1a1a1a;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #007AFF;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #007AFF, #0056CC);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-right: 12px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 122, 255, 0.3);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #34C759, #30D158);
+        }
+        
+        .btn-success:hover {
+            box-shadow: 0 4px 16px rgba(52, 199, 89, 0.3);
+        }
+        
+        .back-btn {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(108, 117, 125, 0.3);
+        }
+        
+        .submodule-info {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .flash-messages {
+            margin: 24px;
+        }
+        
+        .flash-success {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .flash-error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>➕ Добавить вопрос в подмодуль</h1>
+        <div style="margin-top: 16px;">
+            <a href="/admin/modules" class="back-btn">← Назад к модулям</a>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    {% if "Ошибка" in message %}
+                        <div class="flash-error">{{ message }}</div>
+                    {% else %}
+                        <div class="flash-success">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <!-- Submodule Info -->
+        <div class="submodule-info">
+            <h3>{{ submodule.icon or '🔧' }} {{ submodule.name }}</h3>
+            <p><strong>Модуль:</strong> {{ submodule.module.name }}</p>
+            {% if submodule.description %}
+            <p><strong>Описание:</strong> {{ submodule.description }}</p>
+            {% endif %}
+            {% if submodule.difficulty %}
+            <p><strong>Сложность:</strong> {{ submodule.difficulty }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Question Form -->
+        <div class="section">
+            <form method="POST" action="/admin/create_submodule_question">
+                <input type="hidden" name="submodule_id" value="{{ submodule.id }}">
+                
+                <div class="form-group">
+                    <label for="question_text">Текст вопроса *</label>
+                    <textarea id="question_text" name="question_text" rows="4" required 
+                              placeholder="Введите текст вопроса..."></textarea>
+                </div>
+                
+                <div class="options-grid">
+                    <div class="form-group">
+                        <label for="option1">Вариант ответа 1 *</label>
+                        <input type="text" id="option1" name="option1" required 
+                               placeholder="Первый вариант ответа">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="option2">Вариант ответа 2 *</label>
+                        <input type="text" id="option2" name="option2" required 
+                               placeholder="Второй вариант ответа">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="option3">Вариант ответа 3 *</label>
+                        <input type="text" id="option3" name="option3" required 
+                               placeholder="Третий вариант ответа">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="option4">Вариант ответа 4 *</label>
+                        <input type="text" id="option4" name="option4" required 
+                               placeholder="Четвертый вариант ответа">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="correct_answer">Правильный ответ *</label>
+                    <input type="text" id="correct_answer" name="correct_answer" required 
+                           placeholder="Введите точно один из вариантов выше">
+                </div>
+                
+                <div class="form-group">
+                    <label for="hint">Подсказка (необязательно)</label>
+                    <textarea id="hint" name="hint" rows="2" 
+                              placeholder="Подсказка или объяснение к вопросу..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-success">Добавить вопрос</button>
+                <a href="/admin/modules" class="btn">Отмена</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
