@@ -5,7 +5,7 @@ services:
     build: .
     container_name: telegram-mini-app
     ports:
-      - "5000:5000"
+      - "5002:5002"
     volumes:
       # Монтируем текущую директорию для разработки
       - .:/app
@@ -18,7 +18,7 @@ services:
       - FLASK_ENV=production
       - DEBUG=False
       - HOST=0.0.0.0
-      - PORT=5000
+      - PORT=5002
     env_file:
       - .env
     restart: unless-stopped
@@ -33,7 +33,7 @@ services:
     build: .
     container_name: telegram-mini-app-server
     ports:
-      - "5000:5000"
+      - "5002:5002"
     volumes:
       - .:/app
       - ./data:/app/data
@@ -42,11 +42,11 @@ services:
       - FLASK_ENV=production
       - DEBUG=False
       - HOST=0.0.0.0
-      - PORT=5000
+      - PORT=5002
     env_file:
       - .env
     restart: unless-stopped
     # Автоматический запуск приложения
-    command: python production_app.py
+    command: python main.py
     depends_on:
       - telegram-mini-app

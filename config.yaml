@@ -11,7 +11,7 @@ database:
 
 # Telegram Bot (только для Telegram Mini App)
 telegram:
-  bot_token: ""  # Токен бота от @BotFather для валидации данных (опционально)
+  bot_token: "7104761345:AAEewd9ShVjpi9hDcrAL4QOS-o0geBHeeNg"  # Токен бота от @BotFather для валидации данных (опционально)
   web_app_url: "https://640dcace-fc1d-4f73-95b6-e196d98eec59-00-6y6u6ng03tqr.worf.replit.dev"
 
 # Google OAuth (для Google авторизации)

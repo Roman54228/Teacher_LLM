@@ -3,12 +3,12 @@
 
 set -e
 
-echo "🚀 Простое развертывание Telegram Mini App"
-echo "=========================================="
+echo "🚀 Простое развертывание Telegram Mini App (FastAPI)"
+echo "=================================================="
 
 # Проверка что мы в правильной папке
-if [ ! -f "telegram_app.py" ]; then
-    echo "❌ Файл telegram_app.py не найден!"
+if [ ! -f "main.py" ]; then
+    echo "❌ Файл main.py не найден!"
     echo "Запускайте скрипт в папке с кодом приложения"
     exit 1
 fi
@@ -57,7 +57,7 @@ DATABASE_URL=sqlite:///interview_prep.db
 FLASK_ENV=production
 DEBUG=False
 HOST=0.0.0.0
-PORT=5000
+PORT=5002
 
 # Domain
 DOMAIN=$DOMAIN
@@ -68,7 +68,7 @@ echo "⚙️ Настройка systemd сервиса..."
 CURRENT_DIR=$(pwd)
 cat > /etc/systemd/system/telegram-mini-app.service << SERVICE_EOF
 [Unit]
-Description=Telegram Mini App
+Description=Telegram Mini App (FastAPI)
 After=network.target
 
 [Service]
@@ -76,7 +76,7 @@ Type=simple
 User=root
 WorkingDirectory=$CURRENT_DIR
 Environment=PATH=$CURRENT_DIR/venv/bin
-ExecStart=$CURRENT_DIR/venv/bin/python production_app.py
+ExecStart=$CURRENT_DIR/venv/bin/python main.py
 Restart=always
 RestartSec=3
 StandardOutput=journal
@@ -94,7 +94,7 @@ server {
     server_name $DOMAIN www.$DOMAIN;
 
     location / {
-        proxy_pass http://127.0.0.1:5000;
+        proxy_pass http://127.0.0.1:5002;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
@@ -156,6 +156,9 @@ echo
 echo "🎉 Развертывание завершено!"
 echo "========================="
 echo "Приложение установлено в: $(pwd)"
+echo "FastAPI приложение запущено на порту 5002"
+echo "Документация API: https://$DOMAIN/docs"
+echo
 echo "Следующие шаги:"
 echo "1. Отредактируйте .env и добавьте ваши API ключи"
 echo "2. Перезапустите: systemctl restart telegram-mini-app"

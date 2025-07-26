@@ -30,17 +30,17 @@ COPY . .
 RUN mkdir -p logs static data
 
 # Установка прав доступа
-RUN chmod +x production_app.py
+RUN chmod +x main.py
 
 # Переменные окружения
 ENV PYTHONPATH=/app
-ENV FLASK_APP=telegram_app.py
+ENV FLASK_APP=main.py
 ENV FLASK_ENV=production
 ENV HOST=0.0.0.0
-ENV PORT=5000
+ENV PORT=5002
 
 # Открытие порта
-EXPOSE 5000
+EXPOSE 5002
 
 # Команда по умолчанию (можно переопределить)
-CMD ["python", "production_app.py"]
+CMD ["python", "main.py"]
